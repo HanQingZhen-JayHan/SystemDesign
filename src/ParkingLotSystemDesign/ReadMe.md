@@ -1,7 +1,7 @@
-##Parking Lot System Design
+## Parking Lot System Design
 
 
-###1. Clarification questions:
+### 1. Clarification questions:
 - Is this parking lot prepaid or postpaid?
 
    `postpaid `
@@ -39,7 +39,7 @@
    And you also can assume that ther is a membership system exist.`
    
    
-###2. Input & Output
+### 2. Input & Output
     - check in
     input: vehicle plate number, vehicle type
     output: true: check in successful else failed
@@ -56,7 +56,7 @@
     input: new discount
     output: none
 
-###3. Use cases:
+### 3. Use cases:
     - check in
     System scans a car's plate number and gets car's type from server,
     then check if parking lot has enough space. 
@@ -73,8 +73,8 @@
     System will update the discount for all type slots and calulates fee with new discount.
 
 
-###4. Activity diagrams:
+### 4. Activity diagrams:
 
 
-###4. Class diagrams:
+### 5. Class diagrams:
 ![](ParkingLotSystemDesign.png)
