@@ -67,12 +67,6 @@ title __PARKING LOT SYSTEM DESIGN's Class Diagram__\n
         - ticketIdIndex : int
         - ticketList : Map<String, ITicket>
         + ParkingLotManager()
-        + getTicketTypeByPlateNumber()
-        + getVacancyCounts()
-        + getVehicleTypeListBySlotSize()
-        + parkVehicle()
-        + unparkVehicle()
-        + updateDiscount()
         - generateTicketId()
         - getSlotByVehicleType()
     }
@@ -85,19 +79,6 @@ title __PARKING LOT SYSTEM DESIGN's Class Diagram__\n
         - slotEntity : SlotEntity
         - slotParkStrategy : ISlotParkStrategy
         + Slot()
-        + calculateFee()
-        + canPark()
-        + getDiscount()
-        + getRegularPrice()
-        + getTotalCount()
-        + getTypeName()
-        + getVacancyCount()
-        + hasVacancy()
-        + parkVehicle()
-        + setDiscount()
-        + setRegularPrice()
-        + setTotalCount()
-        + unparkVehicle()
     }
   }
   
@@ -110,16 +91,6 @@ title __PARKING LOT SYSTEM DESIGN's Class Diagram__\n
         - totalCount : int
         - vacancyCount : int
         + SlotEntity()
-        + getDiscount()
-        + getRegularPrice()
-        + getSlotSize()
-        + getTotalCount()
-        + getVacancyCount()
-        + setDiscount()
-        + setRegularPrice()
-        + setSlotSize()
-        + setTotalCount()
-        + setVacancyCount()
     }
   }
   
@@ -149,10 +120,6 @@ title __PARKING LOT SYSTEM DESIGN's Class Diagram__\n
         - slot : ISlot
         - vehicle : Vehicle
         + Ticket()
-        + checkout()
-        + convertTime()
-        + getVehicle()
-        + printReceipt()
     }
   }
   
