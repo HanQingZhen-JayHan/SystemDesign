@@ -1,0 +1,216 @@
+@startuml
+
+title __PARKING LOT SYSTEM DESIGN's Class Diagram__\n
+
+  namespace ParkingLotSystemDesign {
+    interface ParkingLotSystemDesign.IManager {
+        {abstract} + getTicketTypeByPlateNumber()
+        {abstract} + getVacancyCounts()
+        {abstract} + getVehicleTypeListBySlotSize()
+        {abstract} + parkVehicle()
+        {abstract} + unparkVehicle()
+        {abstract} + updateDiscount()
+    }
+  }
+  
+
+  namespace ParkingLotSystemDesign {
+    interface ParkingLotSystemDesign.ISlot {
+        {abstract} + calculateFee()
+        {abstract} + canPark()
+        {abstract} + getDiscount()
+        {abstract} + getRegularPrice()
+        {abstract} + getTotalCount()
+        {abstract} + getTypeName()
+        {abstract} + getVacancyCount()
+        {abstract} + hasVacancy()
+        {abstract} + parkVehicle()
+        {abstract} + setDiscount()
+        {abstract} + setRegularPrice()
+        {abstract} + setTotalCount()
+        {abstract} + unparkVehicle()
+    }
+  }
+  
+
+  namespace ParkingLotSystemDesign {
+    interface ParkingLotSystemDesign.ISlotParkStrategy {
+        {abstract} + getCapacityList()
+    }
+  }
+  
+
+  namespace ParkingLotSystemDesign {
+    interface ParkingLotSystemDesign.ITicket {
+        {abstract} + checkout()
+        {abstract} + getVehicle()
+        {abstract} + printReceipt()
+    }
+  }
+  
+
+  namespace ParkingLotSystemDesign {
+    class ParkingLotSystemDesign.ParkingLot {
+        - parkingLotManager : IManager
+        + ParkingLot()
+        + checkIn()
+        + checkout()
+        + getVacancyCounts()
+        + updateDiscount()
+    }
+  }
+  
+
+  namespace ParkingLotSystemDesign {
+    class ParkingLotSystemDesign.ParkingLotManager {
+        - slots : List<ISlot>
+        - ticketIdIndex : int
+        - ticketList : Map<String, ITicket>
+        + ParkingLotManager()
+        + getTicketTypeByPlateNumber()
+        + getVacancyCounts()
+        + getVehicleTypeListBySlotSize()
+        + parkVehicle()
+        + unparkVehicle()
+        + updateDiscount()
+        - generateTicketId()
+        - getSlotByVehicleType()
+    }
+  }
+  
+
+  namespace ParkingLotSystemDesign {
+    class ParkingLotSystemDesign.Slot {
+        - capacities : Set<VehicleType>
+        - slotEntity : SlotEntity
+        - slotParkStrategy : ISlotParkStrategy
+        + Slot()
+        + calculateFee()
+        + canPark()
+        + getDiscount()
+        + getRegularPrice()
+        + getTotalCount()
+        + getTypeName()
+        + getVacancyCount()
+        + hasVacancy()
+        + parkVehicle()
+        + setDiscount()
+        + setRegularPrice()
+        + setTotalCount()
+        + unparkVehicle()
+    }
+  }
+  
+
+  namespace ParkingLotSystemDesign {
+    class ParkingLotSystemDesign.SlotEntity {
+        - discount : float
+        - regularPrice : float
+        - slotSize : SlotSize
+        - totalCount : int
+        - vacancyCount : int
+        + SlotEntity()
+        + getDiscount()
+        + getRegularPrice()
+        + getSlotSize()
+        + getTotalCount()
+        + getVacancyCount()
+        + setDiscount()
+        + setRegularPrice()
+        + setSlotSize()
+        + setTotalCount()
+        + setVacancyCount()
+    }
+  }
+  
+
+  namespace ParkingLotSystemDesign {
+    class ParkingLotSystemDesign.SlotParkDefaultStrategy {
+        + getCapacityList()
+    }
+  }
+  
+
+  namespace ParkingLotSystemDesign {
+    enum SlotSize {
+      LARGE
+      MEDIUM
+      SMALL
+    }
+  }
+  
+
+  namespace ParkingLotSystemDesign {
+    class ParkingLotSystemDesign.Ticket {
+        - id : int
+        - startTime : long
+        - endTime : long
+        - ticketType : TicketType
+        - slot : ISlot
+        - vehicle : Vehicle
+        + Ticket()
+        + checkout()
+        + convertTime()
+        + getVehicle()
+        + printReceipt()
+    }
+  }
+  
+
+  namespace ParkingLotSystemDesign {
+    enum TicketType {
+      DAILY
+      MONTHLY
+      NON_MEMBER
+      WEEKLY
+      YEARLY
+    }
+  }
+  
+
+  namespace ParkingLotSystemDesign {
+    class ParkingLotSystemDesign.Vehicle {
+        - plateNumber : String
+        - vehicleType : VehicleType
+        + getPlateNumber()
+        + getTypeName()
+        + getVehicleType()
+        # Vehicle()
+    }
+  }
+  
+
+  namespace ParkingLotSystemDesign {
+    enum VehicleType {
+      BUS
+      COUPE
+      SEDAN
+      SUV
+      TRUCK
+      VAN
+      WAGON
+    }
+  }
+  
+
+  ParkingLotSystemDesign.ParkingLot o-- ParkingLotSystemDesign.IManager : parkingLotManager
+  ParkingLotSystemDesign.ParkingLotManager .up.|> ParkingLotSystemDesign.IManager
+  ParkingLotSystemDesign.ParkingLotManager o-- ParkingLotSystemDesign.ITicket
+  ParkingLotSystemDesign.ParkingLotManager o-- ParkingLotSystemDesign.ISlot
+  ParkingLotSystemDesign.Slot .up.|> ParkingLotSystemDesign.ISlot
+  ParkingLotSystemDesign.Slot o-- ParkingLotSystemDesign.SlotEntity : slotEntity
+  ParkingLotSystemDesign.Slot o-- ParkingLotSystemDesign.ISlotParkStrategy : slotParkStrategy
+  ParkingLotSystemDesign.SlotEntity o-- ParkingLotSystemDesign.SlotSize : slotSize
+  ParkingLotSystemDesign.SlotParkDefaultStrategy .up.|> ParkingLotSystemDesign.ISlotParkStrategy
+  ParkingLotSystemDesign.Ticket .up.|> ParkingLotSystemDesign.ITicket
+  ParkingLotSystemDesign.Ticket o-- ParkingLotSystemDesign.ISlot : slot
+  ParkingLotSystemDesign.Ticket o-- ParkingLotSystemDesign.TicketType : ticketType
+  ParkingLotSystemDesign.Ticket o-- ParkingLotSystemDesign.Vehicle : vehicle
+  ParkingLotSystemDesign.Vehicle o-- ParkingLotSystemDesign.VehicleType : vehicleType
+
+
+right footer
+
+endfooter
+
+@enduml
