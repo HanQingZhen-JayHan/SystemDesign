@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 
-//auto charge
+//Post paid parking lot system design.
 public class ParkingLot {
 
     public static void main(String[] args) {
@@ -31,7 +31,6 @@ public class ParkingLot {
             }
             so.checkout(String.format("BC-A%dB%dC%dD%d", i, i, i, i));
         }
-
 
     }
 

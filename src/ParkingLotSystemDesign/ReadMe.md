@@ -1,5 +1,9 @@
 ## Parking Lot System Design
 
+### 0. Code
+![](ParkingLot.gif)
+
+[Source Code](ParkingLot.java)
 
 ### 1. Clarification questions:
 - Is this parking lot prepaid or postpaid?
